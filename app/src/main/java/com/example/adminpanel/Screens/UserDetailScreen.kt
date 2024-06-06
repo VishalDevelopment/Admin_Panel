@@ -8,6 +8,8 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
@@ -19,18 +21,20 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.adminpanel.ViewModels.MarsVm
+import com.example.adminpanel.ViewModels.Vm
 
 
 @Composable
-fun UserDetailScreen(data: MarsVm) {
+fun UserDetailScreen(data: Vm) {
 
-    UserDetail(data)
+    Column(Modifier.verticalScroll(rememberScrollState())){
+        UserDetail(data)
+    }
 }
 
 @Composable
 
-fun UserDetail(data: MarsVm) {
+fun UserDetail(data: Vm) {
 
     Box(modifier = Modifier
         .fillMaxWidth()
@@ -44,39 +48,39 @@ fun UserDetail(data: MarsVm) {
                 .padding(8.dp)
                 .fillMaxWidth(1f)) {
                 Text(
-                    text = "ID : ${data._res.value!!.user_id}",
+                    text = "ID : ${data.UserInfo.value!!.user_id}",
                     fontSize = 25.sp,
                     modifier = Modifier.padding(vertical = 10.dp)
                 )
                 Text(
-                    text = "Name : ${data._res.value!!.name}",
-                    fontSize = 25.sp,
-                    modifier = Modifier.padding(vertical = 10.dp)
-                )
-
-                Text(
-                    text = "Email : ${data._res.value!!.email}",
-                    fontSize = 25.sp,
-                    modifier = Modifier.padding(vertical = 10.dp)
-                )
-                Text(
-                    text = "Phone No : ${data._res.value!!.phone}",
+                    text = "Name : ${data.UserInfo.value!!.name}",
                     fontSize = 25.sp,
                     modifier = Modifier.padding(vertical = 10.dp)
                 )
 
                 Text(
-                    text = " Address : ${data._res.value!!.Address}",
+                    text = "Email : ${data.UserInfo.value!!.email}",
                     fontSize = 25.sp,
                     modifier = Modifier.padding(vertical = 10.dp)
                 )
                 Text(
-                    text = " Account Creation : ${data._res.value!!.DateOfAccountCreation}",
+                    text = "Phone No : ${data.UserInfo.value!!.phone}",
+                    fontSize = 25.sp,
+                    modifier = Modifier.padding(vertical = 10.dp)
+                )
+
+                Text(
+                    text = " Address : ${data.UserInfo.value!!.Address}",
                     fontSize = 25.sp,
                     modifier = Modifier.padding(vertical = 10.dp)
                 )
                 Text(
-                    text = " Approved : ${data._res.value!!.approved}",
+                    text = " Account Creation : ${data.UserInfo.value!!.DateOfAccountCreation}",
+                    fontSize = 25.sp,
+                    modifier = Modifier.padding(vertical = 10.dp)
+                )
+                Text(
+                    text = " Approved : ${data.UserInfo.value!!.approved}",
                     fontSize = 25.sp,
                     modifier = Modifier.padding(vertical = 10.dp)
                 )

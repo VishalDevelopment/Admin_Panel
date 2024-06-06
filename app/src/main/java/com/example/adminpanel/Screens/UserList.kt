@@ -1,5 +1,6 @@
 package com.example.adminpanel.Screens
 
+import android.util.Log
 import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -15,31 +16,41 @@ import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.adminpanel.Model.AllUsersItem
-import com.example.adminpanel.ViewModels.MarsVm
+import com.example.adminpanel.Model.GetAllUserItem
+import com.example.adminpanel.ViewModels.Vm
 
 
 @Composable
-fun UserListScreen(viewModel: MarsVm, onClick: (AllUsersItem) -> Unit) {
+fun UserListScreen(viewModel: Vm, onClick: (GetAllUserItem) -> Unit) {
 
     val data = viewModel.dataList.collectAsState()
-    LazyColumn {
-        items(data.value){
-            UserList(viewModel,it,onClick)
+    Log.d("VisComp","${data.value}")
+    if (data!=null && data != emptyList<GetAllUserItem>()){
+        LazyColumn {
+            items(data.value){
+                UserList(viewModel,it,onClick)
+            }
+        }
+    }
+    else{
+        Column (verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally){
+            CircularProgressIndicator()
         }
     }
 }
 
 @Composable
-fun UserList(viewModel: MarsVm, detail: AllUsersItem, onClick: (data: AllUsersItem) -> Unit) {
+fun UserList(viewModel: Vm, detail: GetAllUserItem, onClick: (data: GetAllUserItem) -> Unit) {
 
     Box(modifier = Modifier
         .fillMaxWidth()
@@ -62,7 +73,7 @@ fun UserList(viewModel: MarsVm, detail: AllUsersItem, onClick: (data: AllUsersIt
                     fontSize = 25.sp,
                     modifier = Modifier.padding(vertical = 10.dp)
                 )
-                
+
                 val context = LocalContext.current
                 Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.fillMaxWidth()) {
                     Button(onClick = {

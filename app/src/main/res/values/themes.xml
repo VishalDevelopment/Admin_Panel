@@ -3,5 +3,6 @@
 
     <style name="Theme.AdminPanel" parent="android:Theme.Material.Light.NoActionBar" >
         <item name="android:statusBarColor">@color/black</item>
+        <item name="android:windowLightStatusBar">@color/black</item>
     </style>
 </resources>

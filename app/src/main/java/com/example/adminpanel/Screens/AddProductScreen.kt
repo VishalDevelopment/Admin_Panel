@@ -24,10 +24,10 @@ import androidx.compose.ui.platform.LocalContext
 
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.adminpanel.ViewModels.Vm
 
 @Composable
-@Preview(showBackground = true, heightDp = 800, widthDp = 400)
-fun AddProductScreen() {
+fun AddProductScreen(viewModel: Vm) {
 
 
        Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
@@ -48,27 +48,27 @@ fun AddProductScreen() {
                     modifier = Modifier.padding(5.dp)
                 )
                 OutlinedTextField(
-                    value = name.value,
+                    value = category.value,
                     onValueChange = { category.value = it },
                     placeholder = { Text(text = "Category") },
                     modifier = Modifier.padding(5.dp)
                 )
                 OutlinedTextField(
-                    value = name.value,
+                    value = price.value,
                     onValueChange = { price.value = it },
                     placeholder = { Text(text = "Price") },
                     modifier = Modifier.padding(5.dp)
                 )
                 OutlinedTextField(
-                    value = name.value,
-                    onValueChange = { stock.value = it },
+                    value = stock.value.toString(),
+                    onValueChange = { stock.value =  it },
                     placeholder = { Text(text = "Stock") },
                     modifier = Modifier.padding(5.dp)
                 )
                 val context = LocalContext.current
                 Button(onClick = {
-                    if (name.value !="" && category.value!="" && stock.value!="" && price.value!="" ){
-                        Toast.makeText(context, "Good to Go ", Toast.LENGTH_SHORT).show()
+                    if (name.value !="" && category.value!="" && stock.value!=""&& price.value!="" ){
+                       viewModel.getProduct(name.value,price.value, category.value ,stock.value.toInt())
                     }
                     else{
                         Toast.makeText(context, "Blank fills not allowed", Toast.LENGTH_SHORT).show()
